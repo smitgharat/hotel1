@@ -150,7 +150,7 @@ const List = () => {
     reFetch();
   };
 
-  console.log(data); // Add this line to check the data structure
+  console.log(data); // Inspect data structure
 
   return (
     <div>
@@ -162,7 +162,11 @@ const List = () => {
             <h1 className="lsTitle">Search</h1>
             <div className="lsItem">
               <label>Destination</label>
-              <input placeholder={destination} type="text" />
+              <input
+                value={destination}
+                onChange={(e) => setDestination(e.target.value)}
+                type="text"
+              />
             </div>
             <div className="lsItem">
               <label>Check-in Date</label>
@@ -187,6 +191,7 @@ const List = () => {
                   </span>
                   <input
                     type="number"
+                    value={min}
                     onChange={(e) => setMin(e.target.value)}
                     className="lsOptionInput"
                   />
@@ -197,6 +202,7 @@ const List = () => {
                   </span>
                   <input
                     type="number"
+                    value={max}
                     onChange={(e) => setMax(e.target.value)}
                     className="lsOptionInput"
                   />
@@ -206,8 +212,11 @@ const List = () => {
                   <input
                     type="number"
                     min={1}
+                    value={options.adult}
+                    onChange={(e) =>
+                      setOptions({ ...options, adult: e.target.value })
+                    }
                     className="lsOptionInput"
-                    placeholder={options.adult}
                   />
                 </div>
                 <div className="lsOptionItem">
@@ -215,8 +224,11 @@ const List = () => {
                   <input
                     type="number"
                     min={0}
+                    value={options.children}
+                    onChange={(e) =>
+                      setOptions({ ...options, children: e.target.value })
+                    }
                     className="lsOptionInput"
-                    placeholder={options.children}
                   />
                 </div>
                 <div className="lsOptionItem">
@@ -224,8 +236,11 @@ const List = () => {
                   <input
                     type="number"
                     min={1}
+                    value={options.room}
+                    onChange={(e) =>
+                      setOptions({ ...options, room: e.target.value })
+                    }
                     className="lsOptionInput"
-                    placeholder={options.room}
                   />
                 </div>
               </div>
@@ -235,6 +250,8 @@ const List = () => {
           <div className="listResult">
             {loading ? (
               "loading"
+            ) : error ? (
+              <p>Error loading data.</p>
             ) : (
               <>
                 {Array.isArray(data) ? (
@@ -254,4 +271,3 @@ const List = () => {
 };
 
 export default List;
-
